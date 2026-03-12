@@ -706,19 +706,25 @@ if pagina == "🏠 Dashboard":
 elif pagina == "👤 Cadastro de Visitante":
     st.subheader("Cadastro de Visitante")
 
+    possui_veiculo_visitante = st.selectbox(
+        "Possui veículo?",
+        ["Não", "Sim"],
+        key="possui_veiculo_visitante"
+    )
+
     with st.form("form_visitante", clear_on_submit=True):
         col1, col2 = st.columns(2)
         nome = col1.text_input("Nome")
         documento = col2.text_input("Documento")
         telefone = col1.text_input("Telefone")
-        quadra = col1.selectbox("Quadra", QUADRAS)
-        casa_destino = col2.selectbox("Casa", CASAS)
-        possui_veiculo = col2.selectbox("Possui veículo?", ["Não", "Sim"])
+        quadra = col1.selectbox("Quadra", QUADRAS, key="quadra_visitante")
+        casa_destino = col2.selectbox("Casa", CASAS, key="casa_visitante")
 
         placa = ""
         modelo = ""
         cor = ""
-        if possui_veiculo == "Sim":
+
+        if st.session_state.possui_veiculo_visitante == "Sim":
             placa = col1.text_input("Placa")
             modelo = col2.text_input("Modelo")
             cor = col1.text_input("Cor")
@@ -736,7 +742,7 @@ elif pagina == "👤 Cadastro de Visitante":
                     telefone.strip(),
                     casa_destino.strip(),
                     quadra.strip(),
-                    possui_veiculo,
+                    st.session_state.possui_veiculo_visitante,
                     placa.strip().upper(),
                     modelo.strip(),
                     cor.strip(),
@@ -750,6 +756,12 @@ elif pagina == "👤 Cadastro de Visitante":
 elif pagina == "🛠️ Cadastro de Prestador de Serviço":
     st.subheader("Cadastro de Prestador de Serviço")
 
+    possui_veiculo_prestador = st.selectbox(
+        "Possui veículo?",
+        ["Não", "Sim"],
+        key="possui_veiculo_prestador_selector"
+    )
+
     with st.form("form_prestador", clear_on_submit=True):
         col1, col2 = st.columns(2)
         nome = col1.text_input("Nome")
@@ -759,12 +771,12 @@ elif pagina == "🛠️ Cadastro de Prestador de Serviço":
         telefone = col1.text_input("Telefone")
         quadra = col1.selectbox("Quadra", QUADRAS, key="quadra_prestador")
         casa_destino = col2.selectbox("Casa", CASAS, key="casa_prestador")
-        possui_veiculo = col2.selectbox("Possui veículo?", ["Não", "Sim"], key="possui_veiculo_prestador")
 
         placa = ""
         modelo = ""
         cor = ""
-        if possui_veiculo == "Sim":
+
+        if st.session_state.possui_veiculo_prestador_selector == "Sim":
             placa = col1.text_input("Placa", key="placa_prestador")
             modelo = col2.text_input("Modelo", key="modelo_prestador")
             cor = col1.text_input("Cor", key="cor_prestador")
@@ -784,14 +796,14 @@ elif pagina == "🛠️ Cadastro de Prestador de Serviço":
                     telefone.strip(),
                     casa_destino.strip(),
                     quadra.strip(),
-                    possui_veiculo,
+                    st.session_state.possui_veiculo_prestador_selector,
                     placa.strip().upper(),
                     modelo.strip(),
                     cor.strip(),
                     observacao.strip(),
                 )
                 st.success("Prestador cadastrado com sucesso.")
-
+                
 # =========================================================
 # CADASTROS
 # =========================================================
