@@ -1,0 +1,14 @@
+# Banco de dados
+*.db
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+venv/
+.env/
+
+# Sistema
+.DS_Store
+Thumbs.db
